@@ -1,0 +1,8 @@
+body{
+    background-color: rgb(37, 236, 47);
+}
+
+.navigation_main{
+    display: flex;
+    justify-content: space-evenly;
+}
