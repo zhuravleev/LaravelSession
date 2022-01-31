@@ -4,7 +4,7 @@
     <form method="post" action="/placeupdate/{{$places->id}}"> 
         @csrf
 
-        <h1>Изменение вещи</h1>
+        <h1>Изменение места</h1>
         <div>
             <input type="text" name="name" id="name" placeholder="Введите название" value="{{$places->name}}">
             <label for="description">Описание</label>

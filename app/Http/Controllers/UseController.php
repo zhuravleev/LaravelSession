@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UseModel;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\UserGive;
+use App\Events\EventGive;
 
 class UseController extends Controller
 {
@@ -38,7 +41,11 @@ class UseController extends Controller
                     $usetonew=UseModel::findOrFail($usetoid);
                     $usetonew->amount=$usetonew->amount+1; 
                     $usetonew->save();
+                    $give=$usetonew; 
                     // return response('Success');
+                    $user = User::where('id', '=', $to_id)->get();
+                    Notification::send($user, new UserGive($give));
+                    event(new EventGive($give->thing_id));
                     return redirect('/uses');
                 }
                 else{
@@ -48,6 +55,9 @@ class UseController extends Controller
                     $usenew->place_id= 1;
                     $usenew->amount=1;
                     $usenew->save();
+                    $give=$usenew; 
+                    $user = User::where('id', '=', $to_id)->get();
+                    Notification::send($user, new UserGive($give));
                     // return response('Success');
                     return redirect('/uses');
                 }
@@ -60,6 +70,9 @@ class UseController extends Controller
                     $usetonew=UseModel::findOrFail($usetoid);
                     $usetonew->amount=$usetonew->amount+1; 
                     $usetonew->save();
+                    $give=$usenew; 
+                    $user = User::where('id', '=', $to_id)->get();
+                    Notification::send($user, new UserGive($give));
                     // return response('Success');
                     return redirect('/uses');
                 }
